@@ -1,4 +1,4 @@
-name: Fork Sync
+﻿name: Fork Sync
 
 permissions:
     contents: write
@@ -15,19 +15,10 @@ jobs:
         if: ${{ github.event.repository.fork }}
 
         steps:
-            - name: Checkout target repo
-              uses: actions/checkout@v5
-              with:
-                token: ${{ secrets.GITHUB_TOKEN }}
-
             - name: Sync Upstream
-              uses: aormsby/Fork-Sync-With-Upstream-action@v3.4.3
-              with:
-                  target_repo_token: ${{ secrets.GITHUB_TOKEN }}
-                  upstream_sync_repo: huangxd-/danmu_api
-                  upstream_sync_branch: main
-                  target_sync_branch: main
-                  test_mode: false
+              run: gh repo sync ${{ github.repository }} --force
+              env:
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
             - name: Check for new commits
               if: success()
