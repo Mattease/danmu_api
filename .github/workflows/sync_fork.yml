@@ -18,5 +18,3 @@ jobs:
     steps:
       - name: Sync Upstream
         run: gh repo sync ${{ github.repository }} --force
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
