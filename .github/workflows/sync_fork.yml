@@ -2,7 +2,6 @@ name: Fork Sync
 
 permissions:
   contents: write
-  workflows: write
 
 on:
   schedule:
@@ -18,3 +17,5 @@ jobs:
     steps:
       - name: Sync Upstream
         run: gh repo sync ${{ github.repository }} --force
+        env:
+          GH_TOKEN: ${{ secrets.SYNC_FORK_TOKEN || secrets.GITHUB_TOKEN }}
